@@ -1,7 +1,7 @@
 var React =  require('react');
 var ReactDOM = require('react-dom');
 
-var IFrame = React.createClass({
+class IFrame = extends React.Component {
 
   updateIFrameContents(){
     var frameBody = ReactDOM.findDOMNode(this).contentDocument.body;
@@ -22,6 +22,6 @@ var IFrame = React.createClass({
      );
   },
 
-});
+}
 
 module.exports = IFrame;

@@ -21,15 +21,19 @@ class List extends React.Component{
   }
 
   render() {
-	  let tasks = <tr><td></td><td></td><p>No Tasks</p><td></td><td></td><td></td></tr>;
+
+    console.log("task=>List>Render: "+JSON.stringify(this.props.tasks));
+
+
+	  let tasks = <tr><td></td><p>No Tasks</p><td></td></tr>;
 	  if (this.props.tasks != null)
 	  {
 		  tasks = this.props.tasks.map(task =>
-			  <Line key={task._links.self.href}
+			  <Line key={task.id}
 					task={task}
 					onSelectedItem={this.props.onSelectedItem}/>
 		  );
-      }
+    }
 
 		return (
 		    <div>
@@ -50,14 +54,11 @@ class List extends React.Component{
 							<th>Task Name</th>
 							<th>Assignee</th>
 							<th width="105">Created</th>
-							<th width="105">Due</th>
-							<th>Delegated</th>
-							<th>Priority</th>
 						</tr>
 					  </thead>
 					  <tbody>
-                        {tasks}
-                      </tbody>
+              {tasks}
+            </tbody>
 					</table>
 				</div>
 

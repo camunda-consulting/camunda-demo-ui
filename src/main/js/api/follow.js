@@ -1,4 +1,6 @@
-module.exports = function follow(api, rootPath, relArray) {
+'use strict';
+
+const follow = function(api, rootPath, relArray) {
 	var root = api({
 		method: 'GET',
 		path: rootPath
@@ -38,3 +40,5 @@ module.exports = function follow(api, rootPath, relArray) {
 		return entity._embedded && entity._embedded.hasOwnProperty(rel);
 	}
 };
+
+module.exports = follow;

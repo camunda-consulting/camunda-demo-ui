@@ -1,8 +1,20 @@
-const {Link, IndexLink} = require('react-router');
+/**
+ * @author Paul Lungu
+ */
+
+'use strict';
+
 const React = require('react');
 
-var MarketingBar = React.createClass({
-  render: function(){
+const {
+  NavLink
+} = require("react-router-dom");
+
+class MarketingBar extends React.Component {
+
+
+  render() {
+
     return (
       <div>
         <div className="title-bar" data-responsive-toggle="realEstateMenu" data-hide-for="small">
@@ -12,25 +24,16 @@ var MarketingBar = React.createClass({
                     <li className="menu-text">
                         <span className="title-bar-title"><img src="https://camunda.com/wp-content/uploads/2020/06/favicon.png?text=Camunda"/></span>
                     </li>
-                    <li className="menu-text">
-                        {/*<button className="menu-icon" type="button" data-toggle></button>*/}
-                        {/*<div className="title-bar-title">Insurance Application - Camunda - PoC</div>*/}
-                        {/*<large>PoC</large>*/}
-                    </li>
                 </ul>
             </div>
             <div className="title-bar-right my-title-bar-right">
-                <ul className="menu">
+                <ul className="menu align-right">
                     <li>
-                        <Link to="/tasks" activeClassName="active" className="button radius secondary small" activeStyle={{fontWeight: 'bold'}}>Tasks</Link>
+                        <NavLink to={"./tasks"} className="button radius secondary small" style={{fontWeight: 'bold'}}>Tasks</NavLink>
                     </li>
                     <li>
-                        <IndexLink to="/" activeClassName="active" className="button round small" activeStyle={{fontWeight: 'bold'}}>My Account</IndexLink>
-                        {/*<a className="button small">My Account</a>*/}
+                        <NavLink to={"."} className="button round small" style={{fontWeight: 'bold'}}>Home</NavLink>
                     </li>
-                    {/*<li>*/}
-                    {/*    <Link to="/tasks" activeClassName="active" className="button radius small" activeStyle={{fontWeight: 'bold'}}>Login</Link>*/}
-                    {/*</li>*/}
                 </ul>
             </div>
         </div>
@@ -38,6 +41,7 @@ var MarketingBar = React.createClass({
       </div>
     );
   }
-})
+
+}
 
 module.exports = MarketingBar;

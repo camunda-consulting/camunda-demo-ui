@@ -184,7 +184,7 @@ class Main extends React.Component{
             path: context,
             entity: obj,
             headers: {'Content-Type': 'application/json'}
-        }).done(response => {
+        }).then(response => {
             if (response.status.code == 200){
                 console.log("POST Request Complete"+ JSON.stringify(response));
             }
@@ -212,7 +212,7 @@ class Main extends React.Component{
                 this.schema = schema.entity;
                 return itemCollection;
             });
-        }).done(itemCollection => {
+        }).then(itemCollection => {
             console.log("loadObjectsFromServer: "
                 +JSON.stringify(itemCollection.entity._embedded.cases))
             this.setState({
@@ -240,7 +240,7 @@ class Main extends React.Component{
                 this.schema = schema.entity;
                 return itemCollection;
             });
-        }).done(itemCollection => {
+        }).then(itemCollection => {
             console.log("loadByKeyFromServer: "
                 +JSON.stringify(itemCollection.entity))
             this.setState({
@@ -267,7 +267,7 @@ class Main extends React.Component{
                 this.schema = schema.entity;
                 return itemCollection;
             });
-        }).done(itemCollection => {
+        }).then(itemCollection => {
             console.log("loadUserFromServer: "
                 +JSON.stringify(itemCollection.entity))
             this.setState({
@@ -317,7 +317,7 @@ class Main extends React.Component{
 
         <div style={{display: displayDetailForm}}>
 
-            <div className="small-9 small-offset-1 columns">
+            <div className="small-9 columns">
                 <CaseInfo item={this.state.submission} />
             </div>
             <div className="small-6  columns">

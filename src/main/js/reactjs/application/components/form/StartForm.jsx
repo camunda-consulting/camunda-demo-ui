@@ -55,7 +55,7 @@ class StartForm extends React.Component {
                             onChange={this.handleChange}
                             value={this.props.submission.key} >
 
-                        <option defaultValue>Select Existing Case</option>
+                        <option defaultValue>Select Existing Campaign</option>
                         {options}
                     </select>
 

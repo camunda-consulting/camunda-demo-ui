@@ -28,16 +28,12 @@ class Line extends React.Component{
 
 
   render() {
-
+      console.log("Task->line->Render::Task: "+JSON.stringify(this.props.task))
       return (
           <tr >
-              <td onClick={this.props.onSelectedItem.bind(null, this.props.task)}>{this.props.task.name}</td>
-              <td onClick={this.props.onSelectedItem.bind(null, this.props.task)}>{this.props.task.assignee}</td>
-              <td onClick={this.props.onSelectedItem.bind(null, this.props.task)}>{this.props.task.created}</td>
-              <td onClick={this.props.onSelectedItem.bind(null, this.props.task)}>{this.props.task.due}</td>
-              <td onClick={this.props.onSelectedItem.bind(null, this.props.task)}>{this.props.task.delegationState}</td>
-              <td onClick={this.props.onSelectedItem.bind(null, this.props.task)}>{this.props.task.priority}</td>
-              {/*<td onClick={this.props.onSelectItem.bind(null, this.props.task, this.state.task)}>{this.props.task.serviceId}</td>*/}
+              <td onClick={this.props.onSelectedItem.bind(null, this.props.task.id)}>{this.props.task.name}</td>
+              <td onClick={this.props.onSelectedItem.bind(null, this.props.task.id)}>{this.props.task.assignee}</td>
+              <td onClick={this.props.onSelectedItem.bind(null, this.props.task.id)}>{this.props.task.creationTime}</td>
           </tr>
       )
   }

@@ -1,8 +1,8 @@
 var React = require('react');
 var {Link, IndexLink} = require('react-router');
 
-var FooterBar = React.createClass({
-  render: function(){
+class FooterBar extends React.Component {
+  render() {
     return (
       <div>
           <div className="columns small-offset-5">
@@ -11,6 +11,7 @@ var FooterBar = React.createClass({
      </div>
     );
   }
-})
+
+}
 
 module.exports = FooterBar;

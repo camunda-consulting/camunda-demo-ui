@@ -1,109 +1,126 @@
-var path = require('path');
-var webpack = require('webpack');
-var Dotenv = require('dotenv-webpack');
+const webpack = require('webpack')
+const dotenv = require('dotenv')
+const path = require('path')
+
+dotenv.config();
 
 module.exports = {
-    entry: [
-        'babel-polyfill',
-	    'script!jquery/dist/jquery.min.js',
-	    'script!foundation-sites/dist/foundation.min.js',
-	    `./src/main/js/reactjs/application/app.jsx`
-	  ],
-	externals: {
-		jquery: 'jQuery'
-	},
-	plugins: [
-	  new webpack.ProvidePlugin({
-		  '$': 'jquery',
-		  'jQuery': 'jquery'
-	  }),
-      new Dotenv()
-    ],
-    cache: false,
-    debug: true,
-    output: {
-        path: __dirname,
-        filename: './src/main/resources/static/built/bundle.js'
+  mode: 'development',
+  devtool: 'source-map',
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'src/main/resources/templates'),
     },
-    resolve: {
-        root: __dirname,
-        alias: {
-            //Generic Reusable Components
-            client: 'src/main/js/reactjs/application/components/client.jsx',
-            follow: 'src/main/js/reactjs/application/components/follow.jsx',
-            IFrame: 'src/main/js/reactjs/application/components/IFrame.jsx',
-            NoteDialog: 'src/main/js/reactjs/application/components/note/NoteDialog.jsx',
-            DisplayDate: 'src/main/js/reactjs/application/components/date/DisplayDate.jsx',
-            DisplayDateTime: 'src/main/js/reactjs/application/components/date/DisplayDateTime.jsx',
-
-            //App Main Components
-            Main: 'src/main/js/reactjs/application/components/main/Main.jsx',
-            Parent: 'src/main/js/reactjs/application/components/main/Parent.jsx',
-            MarketingBar: 'src/main/js/reactjs/application/components/main/MarketingBar.jsx',
-            NavigationBar: 'src/main/js/reactjs/application/components/main/NavigationBar.jsx',
-            FooterBar: 'src/main/js/reactjs/application/components/main/FooterBar.jsx',
-
-            uriListConverter: 'src/main/js/api/uriListConverter.js',
-            uriTemplateInterceptor: 'src/main/js/api/uriTemplateInterceptor.js',
-
-            applicaitonStyles: 'src/main/resources/static/app.css',
-            // END Generic Reusable Components
-
-            //Form Components
-            StartForm: 'src/main/js/reactjs/application/components/form/StartForm.jsx',
-            ConfirmationForm: 'src/main/js/reactjs/application/components/form/ConfirmationForm.jsx',
-            //Form Actions
-            SaveAction: 'src/main/js/reactjs/application/components/form/action/Save.jsx',
-            ConfirmAction: 'src/main/js/reactjs/application/components/form/action/Confirm.jsx',
-            SubmitAction: 'src/main/js/reactjs/application/components/form/action/Submit.jsx',
-
-            //Form Info
-            FormInfo: 'src/main/js/reactjs/application/components/form/Info.jsx',
-
-            //Filters Components
-            StatusBar: 'src/main/js/reactjs/application/components/filter/StatusBar.jsx',
-            FilterBar: 'src/main/js/reactjs/application/components/filter/FilterBar.jsx',
-
-            //Workflow Components
-            WorkflowMain: 'src/main/js/reactjs/application/components/workflow/Main.jsx',
-            WorkflowInfo: 'src/main/js/reactjs/application/components/workflow/Info.jsx',
-            WorkflowStartAction: 'src/main/js/reactjs/application/components/workflow/action/Start.jsx',
-
-            //Task Components
-            TaskMain: 'src/main/js/reactjs/application/components/task/Main.jsx',
-            TaskList: 'src/main/js/reactjs/application/components/task/List.jsx',
-            TaskLine: 'src/main/js/reactjs/application/components/task/Line.jsx',
-            TaskDetail: 'src/main/js/reactjs/application/components/task/Detail.jsx',
-            TaskInfo: 'src/main/js/reactjs/application/components/task/Info.jsx',
-            TaskFilterBar: 'src/main/js/reactjs/application/components/task/FilterBar.jsx',
-            TaskSearchForm: 'src/main/js/reactjs/application/components/task/form/SearchForm.jsx',
-            TaskActionApprove: 'src/main/js/reactjs/application/components/task/action/Approve.jsx',
-
-            //Use-case Components
-            UseCaseMain: 'src/main/js/reactjs/application/usecase/adhoc/components/Main.jsx',
-            DetailForm: 'src/main/js/reactjs/application/usecase/adhoc/components/DetailForm.jsx',
-
-            CaseInfo: 'src/main/js/reactjs/application/usecase/case/components/Info.jsx',
-
-            UserInfo: 'src/main/js/reactjs/application/components/user/Info.jsx',
-            // END Use Case Components
-
-        },
-        extensions: ['', '.js', '.jsx']
-    },
-    module: {
-        loaders: [
-            {
-                loader: 'babel-loader',
-                query: {
-                    cacheDirectory: false,
-                    presets: ['es2015', 'react', 'stage-0']
-                },
-                test: path.join(__dirname, '.'),
-                exclude: /(node_modules|bower_components)/,
-            },
-            {loaders: ['style', 'css', 'sass'], test: /\.scss$/ }
+    port: 9000
+  },
+  entry: [
+          path.resolve(__dirname, 'src/main/js/reactjs/application/app.jsx'),
+  	      // path.resolve(__dirname,'script!jquery/dist/jquery.min.js'),
+   	      // path.resolve(__dirname,'script!foundation-sites/dist/foundation.min.js')
+          ],
+  output: {
+    path: path.resolve(__dirname,"src/main/resources/static/built"),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(jsx|js)$/,
+        include: path.resolve(__dirname, 'src/main/js/'),
+        exclude: /node_modules/,
+        use: [{
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                  '@babel/preset-env',
+                  '@babel/preset-react',
+              ]
+            }
+          }
         ]
-    },
-    devtool: ['cheap-module-source-map', 'sourcemaps']
-};
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+       'process.env': JSON.stringify(process.env)
+    })
+  ],
+  resolve: {
+      extensions: ['*', '.js', '.jsx'],
+      alias: {
+          //Generic Reusable Components
+          client: path.resolve(__dirname, 'src/main/js/api/client.js'),
+          follow: path.resolve(__dirname, 'src/main/js/api/follow.js'),
+          IFrame: path.resolve(__dirname, 'src/main/js/reactjs/application/components/IFrame.jsx'),
+          NoteDialog: path.resolve(__dirname, 'src/main/js/reactjs/application/components/note/NoteDialog.jsx'),
+          DisplayDate: path.resolve(__dirname, 'src/main/js/reactjs/application/components/date/DisplayDate.jsx'),
+          DisplayDateTime: path.resolve(__dirname, 'src/main/js/reactjs/application/components/date/DisplayDateTime.jsx'),
+
+          //App Main Components
+          Main: path.resolve(__dirname, 'src/main/js/reactjs/application/components/main/Main.jsx'),
+          Parent: path.resolve(__dirname, 'src/main/js/reactjs/application/components/main/Parent.jsx'),
+          MarketingBar: path.resolve(__dirname, 'src/main/js/reactjs/application/components/main/MarketingBar.jsx'),
+          NavigationBar: path.resolve(__dirname, 'src/main/js/reactjs/application/components/main/NavigationBar.jsx'),
+          FooterBar: path.resolve(__dirname, 'src/main/js/reactjs/application/components/main/FooterBar.jsx'),
+
+          uriListConverter: path.resolve(__dirname, 'src/main/js/api/uriListConverter.js'),
+          uriTemplateInterceptor: path.resolve(__dirname, 'src/main/js/api/uriTemplateInterceptor.js'),
+
+          applicaitonStyles: path.resolve(__dirname, 'src/main/resources/static/app.css'),
+          // END Generic Reusable Components
+
+          //Form Components
+          StartForm: path.resolve(__dirname, 'src/main/js/reactjs/application/components/form/StartForm.jsx'),
+          ConfirmationForm: path.resolve(__dirname, 'src/main/js/reactjs/application/components/form/ConfirmationForm.jsx'),
+          //Form Actions
+          SaveAction: path.resolve(__dirname, 'src/main/js/reactjs/application/components/form/action/Save.jsx'),
+          ConfirmAction: path.resolve(__dirname, 'src/main/js/reactjs/application/components/form/action/Confirm.jsx'),
+          SubmitAction: path.resolve(__dirname, 'src/main/js/reactjs/application/components/form/action/Submit.jsx'),
+
+          //Form Info
+          FormInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/form/Info.jsx'),
+
+          //Filters Components
+          StatusBar: path.resolve(__dirname, 'src/main/js/reactjs/application/components/filter/StatusBar.jsx'),
+          FilterBar: path.resolve(__dirname, 'src/main/js/reactjs/application/components/filter/FilterBar.jsx'),
+
+          //Workflow Components
+          WorkflowMain: path.resolve(__dirname, 'src/main/js/reactjs/application/components/workflow/Main.jsx'),
+          WorkflowInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/workflow/Info.jsx'),
+          WorkflowStartAction: path.resolve(__dirname, 'src/main/js/reactjs/application/components/workflow/action/Start.jsx'),
+
+          //Task Components
+          TaskMain: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/Main.jsx'),
+          TaskList: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/List.jsx'),
+          TaskLine: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/Line.jsx'),
+          TaskDetail: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/Detail.jsx'),
+          TaskInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/Info.jsx'),
+          TaskFilterBar: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/FilterBar.jsx'),
+          TaskSearchForm: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/form/SearchForm.jsx'),
+          CamundaForm: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/form/CamundaForm.jsx'),
+          TaskActionApprove: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/action/Approve.jsx'),
+
+          //Use-case Components
+          UseCaseMain: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/adhoc/components/Main.jsx'),
+          DetailForm: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/adhoc/components/DetailForm.jsx'),
+          CaseInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/case/components/Info.jsx'),
+
+          // UseCaseMain: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/campaign/components/Main.jsx'),
+          // DetailForm: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/campaign/components/DetailForm.jsx'),
+          // CaseInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/campaign/components/Info.jsx'),
+          // FormInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/campaign/components/FormInfo.jsx'),
+
+          UserInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/user/Info.jsx'),
+          // END Use Case Components
+
+      }
+  }
+}

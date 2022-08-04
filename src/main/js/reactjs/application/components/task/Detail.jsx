@@ -13,7 +13,8 @@ const ReactDOM = require('react-dom')
 // tag::customComponents
 const TaskActionApprove = require('TaskActionApprove');
 const Info = require('TaskInfo');
-const SearchForm = require('TaskSearchForm');
+// const SearchForm = require('TaskSearchForm');
+const CamundaForm = require('CamundaForm');
 
 class Detail extends React.Component{
   constructor(props) {
@@ -23,15 +24,17 @@ class Detail extends React.Component{
   }
 
   render(){
+    console.log("Task->Detail->Render::Task: "+JSON.stringify(this.props.task))
 
     return (
       <div>
 
-          <SearchForm handleUpdatePolicy={this.props.handleUpdatePolicy}
-                      policy={this.props.policy} />
+          {/*<SearchForm handleUpdatePolicy={this.props.handleUpdatePolicy}
+                      policy={this.props.policy} />*/}
 
           <Info task={this.props.task} />
 
+          <CamundaForm form={this.props.form}/>
 
           <TaskActionApprove task={this.props.task}
               handleReject={this.props.handleReject}

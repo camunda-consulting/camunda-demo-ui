@@ -5,7 +5,7 @@ class FooterBar extends React.Component {
   render() {
     return (
       <div>
-          <div className="columns small-offset-5">
+          <div className="footer">
                 <small>@Camunda PoC.</small>
           </div>
      </div>

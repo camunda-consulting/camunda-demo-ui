@@ -108,7 +108,7 @@ class TaskMain extends React.Component {
     loadTask(filters){
         client({
             method: 'GET',
-            path: taskApi,
+            path: `${taskApi}?taskId=${filters.taskId}`,
             params: filters,
             headers: {'Accept': 'application/json'}
         }).then((response) =>
@@ -126,7 +126,7 @@ class TaskMain extends React.Component {
     loadForm(filters){
         client({
             method: 'GET',
-            path: formApi,
+            path: `${formApi}?fromKey=${filters.formKey}&processDefinitionId=${filters.processDefinitionId}`,
             params: filters,
             headers: {'Accept': 'application/json'}
         }).then(response => {
@@ -140,7 +140,7 @@ class TaskMain extends React.Component {
     loadTasksFromServer(filters){
         client({
             method: 'GET',
-            path: tasksApi,
+            path: `${tasksApi}?userId=paul.lungu@camunda.com`,
             params: filters,
             headers: {'Accept': 'application/json'}
         }).then(response => {
@@ -193,17 +193,11 @@ class TaskMain extends React.Component {
     render() {
       return (
         <div>
-
             {/*Display Task List*/}
             <div style={{display: this.state.displayList}}>
-
-                <div className="top-bar show-for-medium small-12 columns">
+                <div className="top-bar small-12 columns">
                     <div className="top-bar-left">
-                        <ul className="menu">
-                            <li className="topbar-title">
-                                Task List
-                            </li>
-                        </ul>
+                        Task List
                     </div>
                 </div>
                 <div>
@@ -221,13 +215,9 @@ class TaskMain extends React.Component {
                 </li>
               </ul>
             </div>
-            <div className="top-bar show-for-medium small-12 columns">
+            <div className="top-bar small-12 columns">
               <div className="top-bar-left">
-                <ul className="menu">
-                  <li className="topbar-title">
-                     Task Detail
-                  </li>
-                </ul>
+                 Task Detail
               </div>
             </div>
             <div>
@@ -238,7 +228,6 @@ class TaskMain extends React.Component {
                         handleApprove={this.handleApprove} />
             </div>
           </div>
-
         </div>
       )
     }

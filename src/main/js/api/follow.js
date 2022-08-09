@@ -22,11 +22,13 @@ const follow = function(api, rootPath, relArray) {
 			}
 
 			if (typeof arrayItem === 'string') {
+				console.log("follow.js arrayItem: " + JSON.stringify(arrayItem));
 				return api({
 					method: 'GET',
 					path: response.entity._links[rel].href
 				});
 			} else {
+				console.log("follow.js arrayItem: " + JSON.stringify(arrayItem));
 				return api({
 					method: 'GET',
 					path: response.entity._links[rel].href,

@@ -22,9 +22,7 @@ class Info extends React.Component{
 
       return (
           <div className="my-form my-info">
-            <div className="row">
-
-              <div className="small-5 small-offset-1 columns">
+              <div className="small-12 columns">
                 <div className="card" >
                   <div className="card-divider text-center">
                     <h4>Task Info</h4>
@@ -36,8 +34,6 @@ class Info extends React.Component{
                     </ul>
                   </div>
                 </div>
-              </div>
-
             </div>
         </div>
       )

@@ -87,6 +87,7 @@ module.exports = {
 
           //Form Info
           FormInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/form/Info.jsx'),
+          FormViewer: path.resolve(__dirname, 'src/main/js/reactjs/application/components/form/FormViewer.jsx'),
 
           //Filters Components
           StatusBar: path.resolve(__dirname, 'src/main/js/reactjs/application/components/filter/StatusBar.jsx'),
@@ -98,6 +99,7 @@ module.exports = {
           WorkflowStartAction: path.resolve(__dirname, 'src/main/js/reactjs/application/components/workflow/action/Start.jsx'),
 
           //Task Components
+          TaskParent: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/Parent.jsx'),
           TaskMain: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/Main.jsx'),
           TaskList: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/List.jsx'),
           TaskLine: path.resolve(__dirname, 'src/main/js/reactjs/application/components/task/Line.jsx'),

@@ -48,14 +48,14 @@ class StartForm extends React.Component {
         return (
               <div className="form-registration-group">
                   <a className="form-registration-social-button" href="#" onClick={this.props.onStart}>
-                      <i className="fa fa-facebook-official" aria-hidden="true"></i>Start Submission</a>
+                      <i className="fa fa-facebook-official" aria-hidden="true"></i>Start New Record</a>
 
                     <select className="form-registration-input"
                             ref="pid"
                             onChange={this.handleChange}
                             value={this.props.submission.key} >
 
-                        <option defaultValue>Select Existing Campaign</option>
+                        <option defaultValue>Select Existing Record</option>
                         {options}
                     </select>
 

@@ -9,11 +9,9 @@
 const React = require('react');
 
 // tag::customComponents
-
-// const Form = require('bpmn-io/form-js-viewer');
+const FormViewer = require('FormViewer');
 
 // tag::vars[]
-
 // end::vars[]
 
 class CamundaForm extends React.Component {
@@ -45,26 +43,14 @@ class CamundaForm extends React.Component {
         },
         data: {
           creditor: 'John Doe Company'
-        }
+        },
       });
   }
 
   render() {
-
-      console.log("Task=>CamundaForm=>Render::Form: "+JSON.stringify(this.props.form));
-
+    console.log("Task=>CamundaForm=>Render::Form: "+JSON.stringify(this.props.form));
     return (
-
-
-        <div className="my-form search-form">
-            <div className="small-12 large-12 small-offset-1 columns" >
-
-                <div id="form"></div>
-
-            </div>
-        </div>
-
-
+        <FormViewer schema={this.state.schema} />
     );
   }
 }

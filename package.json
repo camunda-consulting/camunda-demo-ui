@@ -38,6 +38,8 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
+    "@bpmn-io/form-js": "^0.8.0-alpha.0",
+    "@bpmn-io/form-js-viewer": "^0.8.0-alpha.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",

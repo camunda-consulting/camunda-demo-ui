@@ -14,10 +14,8 @@ const follow = require('follow'); // function to hop multiple links by "rel"
 const WorkflowInfo = require('WorkflowInfo');
 // tag::customComponents
 
-// tag::vars[]
-const apiHost = process.env.DATA_API_HOST != "" ? `${process.env.DATA_API_HOST}:${process.env.PALTFORM_API_PORT}/${process.env.PLATFORM_API_ROOT}` : "/engine-rest";
-const workflowContext = process.env.WORKFLOW_CONTEXT_PATH != "" ? `${process.env.WORKFLOW_CONTEXT_PATH}` : "process-instance";
-const uri = apiHost+"/"+workflowContext
+const dataApi = process.env.DATA_API != "" ? process.env.DATA_API : "/";
+const workflowApi = process.env.WORKFLOW_API != "" ? process.env.WORKFLOW_API : "/";
 // end::vars[]
 
 // tag::app[]
@@ -30,10 +28,10 @@ class main extends React.Component {
             displayDetail: "block",
             displayInfo: "block",
             toggleDetailInfo: "off",
-            callUpdate: function (key, that) {that.loadOneFromServer(key)}
+            // callUpdate: function (key, that) {that.loadOneFromServer(key)}
         };
-        this.post = this.post.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        // this.post = this.post.bind(this);
+        // this.onSubmit = this.onSubmit.bind(this);
         this.loadOneFromServer = this.loadOneFromServer.bind(this);
     }
 
@@ -41,7 +39,7 @@ class main extends React.Component {
     // tag::componentDidMount-1[]
     componentDidMount() {
         console.log("workflow=>home=>componentDidMount: "+this.props.businessKey)
-        this.state.callUpdate(this.props.businessKey, this)
+        // this.state.callUpdate(this.props.businessKey, this)
     }
     // end::componentDidMount-1[]
 
@@ -49,7 +47,7 @@ class main extends React.Component {
     loadOneFromServer(businessKey){
         client({
             method: 'GET',
-            path: uri,
+            path: `${workflowApi}/processes`,
             params: {businessKey: businessKey},
             headers: {'Accept': 'application/json'}
         }).done(response => {
@@ -60,53 +58,43 @@ class main extends React.Component {
         });
     }
 
-    post(obj, context) {
-        console.log("POST Started")
-        client({
-            method: 'POST',
-            path: apiHost+context,
-            entity: obj,
-            headers: {'Content-Type': 'application/json'}
-        }).done(response => {
-            console.log("POST Request Complete");
-        });
-    }
+    // post(obj, context) {
+    //     console.log("POST Started")
+    //     client({
+    //         method: 'POST',
+    //         path: `${workflowApi}/processes`,
+    //         entity: obj,
+    //         headers: {'Content-Type': 'application/json'}
+    //     }).done(response => {
+    //         console.log("POST Request Complete");
+    //     });
+    // }
 
-    onSubmit(){
+    // onSubmit(){}
 
-    }
-
-    handleSelectedItem(workflow) {
-        if (workflow == null){
-            alert("You don't have a workflow to complete. Please complete the service request first.");
-        }else {
-            console.log("Megred Task: "+ JSON.stringify(workflow));
-            this.setState({
-                workflow: workflow,
-                displayDetail: "block",
-            });
-        }
-    }
+    // handleSelectedItem(workflow) {
+    //     if (workflow == null){
+    //         alert("You don't have a workflow to complete. Please complete the service request first.");
+    //     }else {
+    //         console.log("Megred Task: "+ JSON.stringify(workflow));
+    //         this.setState({
+    //             workflow: workflow,
+    //             displayDetail: "block",
+    //         });
+    //     }
+    // }
 
     render() {
       return (
-        <div>
-          <div>
-            <div className="top-bar show-for-medium small-12 columns">
+        <div className="workflow-info ">
+            <div className="top-bar">
               <div className="top-bar-left">
-                <ul className="menu">
-                  <li className="topbar-title">
-                     Workflow Detail
-                  </li>
-                </ul>
+                     Workflow Info
               </div>
             </div>
             <div>
-                <div className="small-8 small-offset-2 columns">
-                   <WorkflowInfo workflow={this.state.workflow}/>
-                </div>
+                <WorkflowInfo workflow={this.state.workflow}/>
             </div>
-          </div>
         </div>
       )
     }

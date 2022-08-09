@@ -8,7 +8,7 @@
 // tag::vars[]
 const React = require('react');
 const Main = require('Main');
-const Tasks = require('TaskMain');
+const Tasks = require('TaskParent');
 
 const {
   BrowserRouter,

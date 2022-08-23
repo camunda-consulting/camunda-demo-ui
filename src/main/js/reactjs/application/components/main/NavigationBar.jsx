@@ -1,8 +1,8 @@
 const {Link, IndexLink} = require('react-router');
 const React = require('react');
 
-var MarketingBar = React.createClass({
-  render: function(){
+class NavigationBar extends React.Component {
+  render() {
     return (
       <div>
         <div className="title-bar" data-responsive-toggle="realEstateMenu" data-hide-for="small">
@@ -26,6 +26,7 @@ var MarketingBar = React.createClass({
       </div>
     );
   }
-})
 
-module.exports = MarketingBar;
+}
+
+module.exports = NavigationBar;

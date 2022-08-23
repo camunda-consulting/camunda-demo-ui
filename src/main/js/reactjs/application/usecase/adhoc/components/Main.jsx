@@ -23,8 +23,7 @@ const WorkflowStartAction = require('WorkflowStartAction');
 
 // tag::vars[]
 const dataApi = process.env.DATA_API != "" ? process.env.DATA_API : "/";
-
-const cloudApi = process.env.CLIENT_API != "" ? process.env.CLIENT_API : "/";
+const workflowApi = process.env.START_WORKFLOW_API != "" ? process.env.START_WORKFLOW_API : "/";
 
 // end::vars[]
 
@@ -124,26 +123,19 @@ class Main extends React.Component{
 
     handleUpdateState(target, obj) {
         console.log("Detail => handleUpdateState: "+ target)
-
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-
         console.log("Detail -> handleUpdateState: " + `${name} : ${value}`);
-
         obj[name] = value;
-
         this.setState({
             formProps: obj,
         });
-
         console.log(`Detail => handleUpdateState: ${JSON.stringify(this.state.formProps)}`)
     }
 
     handleUpdateStartState(key) {
         console.log("Detail => handleUpdateStartState : "+ JSON.stringify(key));
-
         this.state.callUpdateItem(key, this);
-
         this.toggleForm("detail");
     }
 
@@ -152,7 +144,6 @@ class Main extends React.Component{
     // ********************************************************
 
     handleStart(){
-
         let data = {
                       processKey: this.state.workflow.key,
                       caseId: this.state.submission.key,
@@ -161,14 +152,10 @@ class Main extends React.Component{
                       readingTime: this.state.formProps.readingTime
                    };
 
-
         console.log("Adhoc -> Main -> Handle Start: " + JSON.stringify(data));
-
         //post the object to the endpoint to save the entity
-        this.post("POST", data, cloudApi);
-
+        this.post("POST", data, workflowApi);
         this.state.callUpdateAll(this.state.pageSize, this);
-
         this.toggleForm("confirmed");
     }
 
@@ -184,7 +171,7 @@ class Main extends React.Component{
             path: context,
             entity: obj,
             headers: {'Content-Type': 'application/json'}
-        }).done(response => {
+        }).then(response => {
             if (response.status.code == 200){
                 console.log("POST Request Complete"+ JSON.stringify(response));
             }
@@ -200,8 +187,6 @@ class Main extends React.Component{
     loadObjectsFromServer(pageSize, obj) {
         follow(client, dataApi, [
                 {rel: obj, params: {size: pageSize}}
-                // {rel: 'search'},
-                // {rel: 'findSubmissionByStarted', params: {started: true}}
             ]
         ).then(itemCollection => {
             return client({
@@ -212,7 +197,7 @@ class Main extends React.Component{
                 this.schema = schema.entity;
                 return itemCollection;
             });
-        }).done(itemCollection => {
+        }).then(itemCollection => {
             console.log("loadObjectsFromServer: "
                 +JSON.stringify(itemCollection.entity._embedded.cases))
             this.setState({
@@ -226,55 +211,34 @@ class Main extends React.Component{
 
     // tag::on-loadByKeyFromServer[]
     loadByKeyFromServer(key) {
-        follow(client, dataApi, [
-            {rel: 'cases'},
-            {rel: 'search'},
-            {rel: 'findCaseByKey', params: {key: key}}
-          ]
-        ).then(itemCollection => {
-            return client({
-                method: 'GET',
-                path: itemCollection.entity._links.self.href,
-                headers: {'Accept': 'application/json'}
-            }).then(schema => {
-                this.schema = schema.entity;
-                return itemCollection;
-            });
-        }).done(itemCollection => {
-            console.log("loadByKeyFromServer: "
-                +JSON.stringify(itemCollection.entity))
-            this.setState({
-                submission: itemCollection.entity,
-                // attributes: Object.keys(this.schema.properties),
-                // pageSize: pageSize,
-                links: itemCollection.entity._links});
+        client({
+            method: 'GET',
+            path: dataApi+"/cases/search/findCaseByKey?key="+key,
+            headers: {'Content-Type': 'application/json'}
+        }).then(response => {
+            if (response.status.code == 200){
+                console.log("POST Request Complete"+ JSON.stringify(response));
+                this.setState({
+                    submission: response.entity,
+                })
+            }
         });
     }
 
     // tag::on-loadUserFromServer[]
     loadUserFromServer(email) {
-        follow(client, dataApi, [
-                {rel: 'users'},
-                {rel: 'search'},
-                {rel: 'findContactByEmail', params: {email: email}}
-            ]
-        ).then(itemCollection => {
-            return client({
-                method: 'GET',
-                path: itemCollection.entity._links.self.href,
-                headers: {'Accept': 'application/json'}
-            }).then(schema => {
-                this.schema = schema.entity;
-                return itemCollection;
-            });
-        }).done(itemCollection => {
-            console.log("loadUserFromServer: "
-                +JSON.stringify(itemCollection.entity))
-            this.setState({
-                user: itemCollection.entity,
-                // attributes: Object.keys(this.schema.properties),
-                // pageSize: pageSize,
-                links: itemCollection.entity._links});
+        client({
+            method: 'GET',
+            path: dataApi+"/users/search/findContactByEmail?email="+email,
+            params: {email: email},
+            headers: {'Content-Type': 'application/json'}
+        }).then(response => {
+            if (response.status.code == 200){
+                console.log("POST Request Complete"+ JSON.stringify(response));
+                this.setState({
+                    user: response.entity,
+                })
+            }
         });
     }
 
@@ -305,8 +269,8 @@ class Main extends React.Component{
         <FilterBar toggleForm={this.toggleForm} title="Use Case Submission"/>
 
         <div style={{display: displayStartForm}}>
-            <div className="my-form start-form">
-                <div className="small-8 small-offset-2 large-8 large-offset-2 columns">
+            <div className="grid-x grid-padding-x align-center my-form start-form">
+                <div className="small-9 columns">
                    <StartForm onUpdateStartState={this.handleUpdateStartState}
                               onStart={this.handleStart}
                               submissions={this.state.submissions}
@@ -316,30 +280,28 @@ class Main extends React.Component{
         </div>
 
         <div style={{display: displayDetailForm}}>
-
-            <div className="small-9 small-offset-1 columns">
+          <div className="grid-x grid-padding-x align-center">
+            <div className="small-10 columns">
                 <CaseInfo item={this.state.submission} />
             </div>
-            <div className="small-6  columns">
+            <div className="small-10  columns">
                 <UserInfo user={this.state.user} />
             </div>
-            <div className="small-6  columns">
+            <div className="small-10  columns">
                 <FormInfo formProps={this.state.formProps} />
             </div>
 
-            <div className="workflow-info">
+            <div className="small-10  columns">
                 {workflow}
             </div>
+          </div>
 
-            <div className="my-form detail-form">
-                <div className="small-12 large-12 small-offset-1 columns form-registration-group" >
-                    <DetailForm formProps={this.state.formProps}
-                        workflow={this.state.workflow}
-                        onUpdateState={this.handleUpdateState} />
-                </div>
-            </div>
-
-            <WorkflowStartAction onStart={this.handleStart} />
+          <div className="form-registration-group" >
+              <DetailForm formProps={this.state.formProps}
+                  workflow={this.state.workflow}
+                  onUpdateState={this.handleUpdateState} />
+          </div>
+          <WorkflowStartAction onStart={this.handleStart} />
         </div>
 
         <div style={{display: displayConfirmationForm}}>
@@ -356,7 +318,6 @@ class Main extends React.Component{
       </div>
     )
   }//End Render
-
 }
 
 module.exports = Main;

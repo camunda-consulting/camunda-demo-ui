@@ -23,4 +23,4 @@ WORKDIR /usr/src/app
 # copy the built jar to the new image
 COPY --from=builder /usr/src/app/target/camunda-demo-reactjs.jar ${WORKDIR}
 # run the application
-ENTRYPOINT ["java","-Dspring.profiles.active=cors,prod","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/src/app/camunda-demo-reactjs.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/usr/src/app/camunda-demo-reactjs.jar"]

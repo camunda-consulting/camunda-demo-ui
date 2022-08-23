@@ -1,4 +1,6 @@
-module.exports = function follow(api, rootPath, relArray) {
+'use strict';
+
+const follow = function(api, rootPath, relArray) {
 	var root = api({
 		method: 'GET',
 		path: rootPath
@@ -20,11 +22,13 @@ module.exports = function follow(api, rootPath, relArray) {
 			}
 
 			if (typeof arrayItem === 'string') {
+				console.log("follow.js arrayItem: " + JSON.stringify(arrayItem));
 				return api({
 					method: 'GET',
 					path: response.entity._links[rel].href
 				});
 			} else {
+				console.log("follow.js arrayItem: " + JSON.stringify(arrayItem));
 				return api({
 					method: 'GET',
 					path: response.entity._links[rel].href,
@@ -38,3 +42,5 @@ module.exports = function follow(api, rootPath, relArray) {
 		return entity._embedded && entity._embedded.hasOwnProperty(rel);
 	}
 };
+
+module.exports = follow;

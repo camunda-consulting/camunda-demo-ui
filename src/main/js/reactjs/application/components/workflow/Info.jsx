@@ -26,7 +26,6 @@ class Info extends React.Component{
           console.log("Info Render: "+JSON.stringify(this.props.workflow));
 
           info =  <div>
-                     {/*<h4>Workflow Info</h4>*/}
                      <ul>
                           <li><span className="label">Workflow Id</span><span className="data">{this.props.workflow.id}</span></li>
                           {/*<li><span className="label">Business Key</span><span className="data">{this.props.workflow.businessKey}</span></li>*/}
@@ -34,17 +33,12 @@ class Info extends React.Component{
                   </div>
 
       }else {
-          info =  <div>
-                    <h4>Workflow not started. Please fill out the form to start the workflow.</h4>
-                  </div>
-
+          info = <h5>Workflow not started. Please fill out the form to start the workflow.</h5>
       }
 
       return (
-        <div className="card" >
-          <div className="card-divider large-text-left">
-              {info}
-          </div>
+        <div>
+          {info}
         </div>
       )
   }

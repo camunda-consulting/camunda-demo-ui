@@ -1,8 +1,8 @@
 var React = require('react');
 const client = require('../../usecase/service-request/components/client.jsx');
 
-var ImportCannedMessageForm = React.createClass({
-    
+class ImportCannedMessageForm extends React.Component {
+
   handleSubmit(e){
     e.preventDefault();
     var message = {};
@@ -22,18 +22,18 @@ var ImportCannedMessageForm = React.createClass({
     },
     response => {
        if (response.error){
-            alert("Somthing went wrong "+ reponse.error)   
+            alert("Somthing went wrong "+ reponse.error)
        }else if (response.status.code === 400) {
            alert('Bad Request: The request was not successful');
        }else if (response.status.code === 403) {
            alert('ACCESS DENIED: You are not authorized to create');
        }else{
            alert("Somthing went wrong "+ reponse.error);
-       }   
+       }
     });
   },
 
-  render: function(){
+  render() {
     return (
       <div className="row">
           <div className="small-12 columns">
@@ -49,6 +49,7 @@ var ImportCannedMessageForm = React.createClass({
 
     );
   }
-})
+
+}
 
 module.exports = ImportCannedMessageForm;

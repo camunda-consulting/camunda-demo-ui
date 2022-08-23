@@ -1,7 +1,7 @@
 var React =  require('react');
 var ReactDOM = require('react-dom');
 
-var DisplayDateTime = React.createClass({
+class DisplayDateTime extends React.Component {
 
   render: function() {
     var newDate = "";
@@ -15,6 +15,6 @@ var DisplayDateTime = React.createClass({
      );
   },
 
-});
+}
 
 module.exports = DisplayDateTime;

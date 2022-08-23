@@ -2,20 +2,9 @@
  * @author Paul Lungu
  * @type {{DOM, PropTypes, createElement, isValidElement, version, __spread, PureComponent, createMixin, createClass, Children, Component, createFactory, cloneElement}}
  */
-
 'use strict';
-
 // tag::nodeModules[]
-import {startWith, switchMap} from "rxjs/operators";
-import {interval} from "rxjs";
-
-const apiHost = process.env.DATA_API_HOST != "" ? `${process.env.DATA_API_HOST}:${process.env.DATA_API_PORT}/` : "/";
-const apiRoot = `${apiHost}${process.env.API_ROOT}`;
-
 const React = require('react');
-
-// tag::customComponents
-// tag::vars[]
 
 
 class Info extends React.Component{
@@ -23,19 +12,17 @@ class Info extends React.Component{
   constructor(props) {
       super(props);
       this.state = {
-          isLoading: false,
       }
 
   }
 
 
     render(){
+      console.log("Task->Info->Render::Task: "+JSON.stringify(this.props.task))
 
       return (
           <div className="my-form my-info">
-            <div className="row">
-
-              <div className="small-5 small-offset-1 columns">
+              <div className="small-12 columns">
                 <div className="card" >
                   <div className="card-divider text-center">
                     <h4>Task Info</h4>
@@ -47,13 +34,11 @@ class Info extends React.Component{
                     </ul>
                   </div>
                 </div>
-              </div>
-
             </div>
         </div>
-      )                 
+      )
   }
-  
+
 }
-  
+
 module.exports = Info;

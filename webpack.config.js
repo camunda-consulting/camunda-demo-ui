@@ -14,10 +14,9 @@ module.exports = {
     port: 9000
   },
   entry: {
+    index: path.resolve(__dirname, 'src/main/js/reactjs/application/index.jsx'),
     app: path.resolve(__dirname, 'src/main/js/reactjs/application/app.jsx'),
     login: path.resolve(__dirname, 'src/main/js/reactjs/application/login.jsx'),
-    // path.resolve(__dirname,'script!jquery/dist/jquery.min.js'),
-    // path.resolve(__dirname,'script!foundation-sites/dist/foundation.min.js')
   },
   output: {
     path: path.resolve(__dirname,"src/main/resources/static/built"),

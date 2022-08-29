@@ -45,7 +45,11 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ]
   },
   plugins: [
@@ -120,8 +124,10 @@ module.exports = {
           // CaseInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/campaign/components/Info.jsx'),
           // FormInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/campaign/components/FormInfo.jsx'),
 
-          UserInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/user/Info.jsx'),
-          // END Use Case Components
+        UserInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/user/Info.jsx'),
+
+        Login: path.resolve(__dirname, 'src/main/js/reactjs/application/components/auth/Login.jsx'),
+        // END Use Case Components
 
       }
   }

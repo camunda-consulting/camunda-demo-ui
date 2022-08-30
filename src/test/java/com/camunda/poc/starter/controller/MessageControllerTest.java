@@ -1,5 +1,7 @@
 package com.camunda.poc.starter.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,26 +14,21 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureMockMvc
 public class MessageControllerTest {
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-    private MockMvc mvc;
+  @Autowired private WebApplicationContext webApplicationContext;
+  private MockMvc mvc;
 
-    @Before
-    public void setUp() {
-        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-    
-    @Test
-    public void getHello() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/"))
-                .andExpect(status().isOk());
-    }
-    
+  @Before
+  public void setUp() {
+    mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+  }
+
+  @Test
+  public void getHello() throws Exception {
+    mvc.perform(MockMvcRequestBuilders.get("/")).andExpect(status().isOk());
+  }
 }

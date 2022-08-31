@@ -1,7 +1,7 @@
 ####
 ## run Maven build in Docker image layer and cache dependencies
 ####
-FROM maven:3-jdk-8 as builder
+FROM maven:3-jdk-11 as builder
 # setup base dir
 WORKDIR /usr/src/app
 # copy files from project

@@ -5,19 +5,17 @@
 
   <groupId>com.camunda.reactjs.starter</groupId>
   <artifactId>camunda-demo-reactjs</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.3</version>
 
   <name>Camunda React Starter App</name>
   <description>Spring Boot Application to deploy reactjs application.</description>
 
   <properties>
+    <java.version>11</java.version>
     <springBoot.version>2.7.3</springBoot.version>
-
     <springBoot.maven.plugin.version>2.7.3</springBoot.maven.plugin.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <version.java>1.8</version.java>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>

@@ -89,3 +89,25 @@ Even though everything can be built using `mvn`, it's often convenient to use `n
 * The files in `src/main/js/reactjs/application/components` are reusable components.
 * The files in `src/main/js/reactjs/application/usecase` are use case specific components
 * The file `src/main/js/reactjs/application/app.jsx` is the entry point to the application.
+
+### Add new single page app
+
+This project is organized to make it easy to add new single page web apps. Each app can reuse shared components as
+needed. Create a new app in 3 steps:
+
+1. Create a new "entrypoint" jsx file. Entry point components typically render a main React component into a html page. For example, `src/main/js/reactjs/application/login.jsx` mounts a `<Login/>` react component.
+2. Update the `webpack.config.js` to produce a bundle js file for the entrypoint. For example, the following snippet tells webpack to transpile `login.jsx` (and all of it's transitive dependencies). The result will be a javascript file named `login.bundle.js` inside the `src/main/resources/static/built` directory.
+
+```
+  entry: {
+    ...
+    login: path.resolve(__dirname, 'src/main/js/reactjs/application/login.jsx'),
+    ...
+  },
+```
+3. Use the javascript file from an html file. For example, `src/main/resources/templates/login.html` simply includes the `login.bundle.js` file like so:
+
+```html
+    <div id="react"></div>
+    <script src="built/login.bundle.js"></script>
+```

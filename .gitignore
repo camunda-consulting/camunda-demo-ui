@@ -29,3 +29,5 @@ application-dev.properties
 **/.DS_Store
 /.DS_Store
 settings.xml
+
+src/main/resources/static/built

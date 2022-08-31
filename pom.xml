@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.camunda.reactjs.starter</groupId>
@@ -24,7 +24,7 @@
 
   <dependencyManagement>
     <dependencies>
-       <dependency>
+      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${springBoot.version}</version>
@@ -36,12 +36,12 @@
 
   <dependencies>
     <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <scope>test</scope>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
     </dependency>
 
-	<!-- Testing -->
+    <!-- Testing -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -58,14 +58,14 @@
     <!-- Add your own dependencies here, if in compile scope, they are added to the jar -->
 
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-websocket</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
 
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-webflux</artifactId>
-        <version>2.7.3</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+      <version>2.7.3</version>
     </dependency>
 
     <dependency>
@@ -74,14 +74,11 @@
     </dependency>
 
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
 
   </dependencies>
-
-  <!-- Repositories for dependency download -->
-  <repositories></repositories>
 
   <build>
     <finalName>${project.artifactId}</finalName>
@@ -112,6 +109,20 @@
       </dependencies>
       <build>
         <plugins>
+          <!-- Google code format plugin -->
+          <plugin>
+            <groupId>com.spotify.fmt</groupId>
+            <artifactId>fmt-maven-plugin</artifactId>
+            <version>2.19</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>format</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
@@ -120,55 +131,55 @@
             </configuration>
           </plugin>
           <plugin>
-      			<groupId>com.github.eirslett</groupId>
-      			<artifactId>frontend-maven-plugin</artifactId>
-      			<version>1.12.1</version>
-      			<configuration>
-      				<installDirectory>target</installDirectory>
-      			</configuration>
-      			<executions>
-      				<execution>
-      					<id>install node and npm</id>
-      					<goals>
-      						<goal>install-node-and-npm</goal>
-      					</goals>
-      					<configuration>
-      						<nodeVersion>v12.10.0</nodeVersion>
-      						<npmVersion>6.11.3</npmVersion>
-      					</configuration>
-      				</execution>
-      				<execution>
-      					<id>npm install</id>
-      					<goals>
-      						<goal>npm</goal>
-      					</goals>
-      					<configuration>
-      						<arguments>install</arguments>
-      					</configuration>
-      				</execution>
-      				<execution>
-      					<id>webpack build</id>
-      					<goals>
-      						<goal>webpack</goal>
-      					</goals>
-      				</execution>
-            </executions>
-      			</plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${springBoot.version}</version>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.12.1</version>
+            <configuration>
+              <installDirectory>target</installDirectory>
+            </configuration>
+            <executions>
+              <execution>
+                <id>install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
                 <configuration>
-                    <layout>ZIP</layout>
+                  <nodeVersion>v12.10.0</nodeVersion>
+                  <npmVersion>6.11.3</npmVersion>
                 </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+              </execution>
+              <execution>
+                <id>npm install</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <configuration>
+                  <arguments>install</arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>webpack build</id>
+                <goals>
+                  <goal>webpack</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${springBoot.version}</version>
+            <configuration>
+              <layout>ZIP</layout>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>repackage</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
       </build>
     </profile>

@@ -13,14 +13,14 @@ module.exports = {
     },
     port: 9000
   },
-  entry: [
-          path.resolve(__dirname, 'src/main/js/reactjs/application/app.jsx'),
-  	      // path.resolve(__dirname,'script!jquery/dist/jquery.min.js'),
-   	      // path.resolve(__dirname,'script!foundation-sites/dist/foundation.min.js')
-          ],
+  entry: {
+    index: path.resolve(__dirname, 'src/main/js/reactjs/application/index.jsx'),
+    app: path.resolve(__dirname, 'src/main/js/reactjs/application/app.jsx'),
+    login: path.resolve(__dirname, 'src/main/js/reactjs/application/login.jsx'),
+  },
   output: {
     path: path.resolve(__dirname,"src/main/resources/static/built"),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
@@ -45,7 +45,11 @@ module.exports = {
           'style-loader',
           'css-loader'
         ]
-      }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ]
   },
   plugins: [
@@ -120,8 +124,10 @@ module.exports = {
           // CaseInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/campaign/components/Info.jsx'),
           // FormInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/usecase/campaign/components/FormInfo.jsx'),
 
-          UserInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/user/Info.jsx'),
-          // END Use Case Components
+        UserInfo: path.resolve(__dirname, 'src/main/js/reactjs/application/components/user/Info.jsx'),
+
+        Login: path.resolve(__dirname, 'src/main/js/reactjs/application/components/auth/Login.jsx'),
+        // END Use Case Components
 
       }
   }
